@@ -1,35 +1,35 @@
-var myBudget = +prompt("Ваш бюджет (руб)?");
-var myNameShop = prompt("Название вашего магазина?");
-let i = 0;
+•	Какое будет выведено значение: let x = 5; alert( x++ ); ?
+6
 
-var mainList = {
-		budget: myBudget,
-		nameShop: myNameShop,
-		shopGoods: [],
-		employers: {},
-		open: true
-	}
+•	Чему равно такое выражение: [ ] + false - null + true ?
+NaN
 
+•	Что выведет этот код: let y = 1; let x = y = 2; alert(x); ?
+2
 
-for (let i=0 ; i<3 ; i++) {
-	mainList.shopGoods[i] = prompt("Какой тип товаров будем продавать?");
-}
+•	Чему равна сумма [ ] + 1 + 2?
+"12"
 
-// i = 0;
-// do {
-// 	mainList.shopGoods[i] = prompt("Какой тип товаров будем продавать?");
-// 	i++;
-// }
-// while (let i<3 )
+•	Что выведет этот код: alert( "1"[0] )?
+1
 
-// i = 0;
-// while (let i<3 ) {
-// 	mainList.shopGoods[i] = prompt("Какой тип товаров будем продавать?");
-// 	i++;
-// }
+•	Чему равно 2 && 1 && null && 0 && undefined ?
+null
 
+•	Есть ли разница между выражениями? !!( a && b ) и (a && b)?
+разница между выражениями заключается в типе возвращаемого значения
 
-console.log(mainList);
+•	Что выведет этот код: alert( null || 2 && 3 || 4 ); ?
+3
 
-alert("Бюджет на 1 день: "+mainList.budget/30+" руб.");
+•	a = [1, 2, 3]; b = [1, 2, 3]; Правда ли что a == b ?
+нет
 
+•	Что выведет этот код: alert( +"Infinity" ); ?
+Infinity
+
+•	Верно ли сравнение: "ёжик" > "яблоко"?
+да
+
+•	Чему равно 0 || "" || 2 || undefined || true || falsе ?
+2
