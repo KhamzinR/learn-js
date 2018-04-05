@@ -31,14 +31,20 @@ window.addEventListener('DOMContentLoaded', function(){
 		};
 	});
 
-	let deadline = '2018-04-07 22:05';
-	let tTime = Date.parse(deadline) - Date.parse(new Date());
+	let deadline = '2018-04-05 22:39';
+	
 
 	function totalTime(endtime) {
 		let tTime = Date.parse(deadline) - Date.parse(new Date());
 		let	seconds = Math.floor( ( tTime / 1000 ) % 60 ),
 			minutes = Math.floor(( tTime / 1000 / 60) % 60) ,
 			hours = Math.floor(tTime / 1000 / 60 / 60 );
+
+			if ( tTime < 0 ) {
+				seconds = 0;
+				minutes = 0;
+				hours = 0;
+			};
 			return {
 					'total': tTime,
 					'sec': seconds,
@@ -55,21 +61,17 @@ window.addEventListener('DOMContentLoaded', function(){
 		function updateTimes() {
 			let tt = totalTime(times);
 			
-			if ( tt.total <= 0 ) {
-				clearInterval(t);
-			} else {
-				s.innerHTML = tt.sec;
-				m.innerHTML = tt.min;
-				h.innerHTML = tt.hs;
-
-			}
-
+			if ( tt.sec < 10 ) {s.innerHTML = '0'+tt.sec} else {s.innerHTML = tt.sec};
+			if ( tt.min < 10 ) {m.innerHTML = '0'+tt.min} else {m.innerHTML = tt.min};
+			if ( tt.hs < 10 ) {h.innerHTML = '0'+tt.hs} else {h.innerHTML = tt.hs};
+		
+			if ( tt.total < 0 ) {clearInterval(t);}
 		};
 
-		if (tTime >= 0) {
+	
 			updateTimes();
 			let t = setInterval(updateTimes, 1000);
-		}
+	
 
 	};
 
