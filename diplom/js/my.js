@@ -13,7 +13,6 @@ let popupBtn = document.getElementById('popup-btn'),
 	radioBtn = document.getElementsByClassName('radio')[0],
 	customInfo = document.getElementsByClassName('custom-info')[0],
 	customChar = document.getElementsByClassName('custom-char')[0],
-
 	customStyle = document.getElementsByClassName('custom-style')[0];
 
 let peopleInfo = {};
@@ -60,7 +59,7 @@ function selectCheck() {
 };
 
 function checkString(fio) {
-	let reg = /^[а-яА-ЯёЁa-zA-Z. ]+$/;
+	let reg = /^[а-яА-ЯёЁ. ]+$/;
 	if (!reg.test(fio))
 	{
 		return false;
@@ -116,12 +115,14 @@ function showMain() {
 }
 
 function createCard(peopleInfo) {
-	showMain();
+	
 	let newCard = document.getElementsByClassName('main-cards-item')[1].cloneNode(true),
-		mainWrapper  = document.getElementsByClassName('main-cards')[0],
+   		mainWrapper  = document.getElementsByClassName('main-cards')[0],
 		photoImg = newCard.getElementsByClassName('photo')[0],
-		allCard = document.getElementsByClassName('main-cards-item');
-
+		allCard = document.getElementsByClassName('main-cards-item'),
+		constructHuman = document.getElementsByClassName('construct')[0].cloneNode(true);
+		
+		constructHuman.classList.add('photo');
 	for (let i = 0; i < newCard.children.length; i++) {
 
 		if ( newCard.children[i].className == 'age') {
@@ -145,19 +146,28 @@ function createCard(peopleInfo) {
 		}
 
 		if ( newCard.children[i].className == 'candidate-block') {
-			if (peopleInfo.sex == 'Мужской') {
- 				photoImg.classList.remove('photo-2');
- 				photoImg.classList.add('photo-1');
- 			}
- 			else
- 			{
-  				photoImg.classList.remove('photo-1');
- 				photoImg.classList.add('photo-2');				
- 			}
+			//  if (peopleInfo.sex == 'Мужской') {
+ 			//  	photoImg.classList.remove('photo-2');
+ 			//  	photoImg.classList.add('photo-1');
+ 			//  }
+ 			//  else
+ 			//  {
+  			//  	photoImg.classList.remove('photo-1');
+ 			//  	photoImg.classList.add('photo-2');				
+ 			// }
 			
+			// photoImg.remove();	
+			// newCard.children[i].appendChild(constructHuman);
+			
+			newCard.children[i].replaceChild(constructHuman,photoImg)
+				
+
 		}
 		
 	}
+
+	showMain();
+
 	if (allCard.length>2) {
 		mainWrapper.replaceChild(newCard, allCard[2])
 	} 
@@ -254,13 +264,13 @@ function randomInteger(min, max) {
 function honestVoting(random2) {
 	let zeroProgress = document.getElementsByClassName('progress-bar'),
 		resultCount = document.getElementsByClassName('result-count'),
-		random = 0, random3 = 1;
+		random = 0, random3 = 0;
 
 		if (random2 != 0 ) { random3 = 25;}
 
 		for ( let i = 0; i < zeroProgress.length; i++) {
 			if (i<2) {
-				random = randomInteger(1, 100-random2); 
+				random = randomInteger(2, 100-random2); 
 				random2 += random;
 				if (100-random2 == 0) { // Проверка, чтобы не было 0% у кандидата, минимум 1%
 					random -= 1;
@@ -400,7 +410,7 @@ resetBtn.addEventListener('click', function() {
 
 nameInput.addEventListener('blur', function() {
 	if ( !checkString(this.value) || this.value.length > 250 || this.value.length < 1) {
-		alert('Недопустимые символы! Введите заново ФИО.');
+		alert('Недопустимые символы! \nДопустимы только кирилические символы.\nВведите заново ФИО.');
 		this.value = ' ';
 		this.focus();
 	} 
@@ -408,9 +418,9 @@ nameInput.addEventListener('blur', function() {
 });
 
 ageInput.addEventListener('blur', function() {
-	if (!checkAge(this.value) || this.value >150 || this.value < 0 ) {
-		alert('Недопустимые значения! Введите возраст заново.');
-		this.value = '';
+	if (!checkAge(this.value) || this.value >100 || this.value <= 35 ) {
+		alert('Недопустимые значения!\nВозраст от 35 до 100 лет\nВведите возраст заново.');
+		this.value = 35;
 		this.focus();
 	};
 });
