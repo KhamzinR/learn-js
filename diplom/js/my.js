@@ -123,6 +123,8 @@ function createCard(peopleInfo) {
 		constructHuman = document.getElementsByClassName('construct')[0].cloneNode(true);
 		
 		constructHuman.classList.add('photo');
+		constructHuman.classList.remove('construct');
+
 	for (let i = 0; i < newCard.children.length; i++) {
 
 		if ( newCard.children[i].className == 'age') {
@@ -146,22 +148,7 @@ function createCard(peopleInfo) {
 		}
 
 		if ( newCard.children[i].className == 'candidate-block') {
-			//  if (peopleInfo.sex == 'Мужской') {
- 			//  	photoImg.classList.remove('photo-2');
- 			//  	photoImg.classList.add('photo-1');
- 			//  }
- 			//  else
- 			//  {
-  			//  	photoImg.classList.remove('photo-1');
- 			//  	photoImg.classList.add('photo-2');				
- 			// }
-			
-			// photoImg.remove();	
-			// newCard.children[i].appendChild(constructHuman);
-			
 			newCard.children[i].replaceChild(constructHuman,photoImg)
-				
-
 		}
 		
 	}
@@ -175,6 +162,8 @@ function createCard(peopleInfo) {
 	{
 		mainWrapper.appendChild(newCard);
 	}
+
+	constructHuman = '';
 };
 
 let slideSkinIndex = 1,
