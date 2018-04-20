@@ -5,12 +5,15 @@ let popupBtn = document.getElementById('popup-btn'),
 	votingBtn = document.getElementById('voting'),
 	crimeBtn = document.getElementById('crime'),
 	resetBtn = document.getElementById('reset'),
+	nameInput = document.getElementById('name'),
+	ageInput = document.getElementById('age'),
 	main = document.getElementsByClassName('main')[0],
 	overlay = document.getElementsByClassName('overlay')[0],
 	custom = document.getElementsByClassName('custom')[0],
 	radioBtn = document.getElementsByClassName('radio')[0],
 	customInfo = document.getElementsByClassName('custom-info')[0],
 	customChar = document.getElementsByClassName('custom-char')[0],
+
 	customStyle = document.getElementsByClassName('custom-style')[0];
 
 let peopleInfo = {};
@@ -55,6 +58,28 @@ function selectCheck() {
 	let s = document.getElementById('select');
 	return s.options[s.selectedIndex].value;
 };
+
+function checkString(fio) {
+	let reg = /^[а-яА-ЯёЁa-zA-Z. ]+$/;
+	if (!reg.test(fio))
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+function checkAge(age) {
+	if ( /[^[0-9]/.test(age) ){
+		return false
+	} 
+	else
+	{
+		return true
+	}
+}
 
 
 function hiddenMain() {
@@ -338,15 +363,27 @@ popupBtn.addEventListener('click', function() {
 	hiddenMain();
 });
 
+function isEmpty(str) {
+	if (str.trim() == '') 
+	  return true;
+	  
+	return false;
+}
+
 readyBtn.addEventListener('click', function() {
 	peopleInfo.fio = getName();
 	peopleInfo.age = getAge();
 	peopleInfo.sex = radioCheck();
 	peopleInfo.politic = selectCheck();
 	peopleInfo.bio = getBio();
-	
-	zeroResult();
-	createCard(peopleInfo);
+	if (isEmpty(peopleInfo.fio) || isEmpty(peopleInfo.age) || isEmpty(peopleInfo.bio)) {
+		alert('Внесите все данные в обязательные поля');
+	}
+	else
+	{
+		zeroResult();
+		createCard(peopleInfo);
+	}
 });
 
 votingBtn.addEventListener('click', function() {
@@ -359,4 +396,21 @@ crimeBtn.addEventListener('click', function() {
 
 resetBtn.addEventListener('click', function() {
 	hiddenMain();
+});
+
+nameInput.addEventListener('blur', function() {
+	if ( !checkString(this.value) || this.value.length > 250 || this.value.length < 1) {
+		alert('Недопустимые символы! Введите заново ФИО.');
+		this.value = ' ';
+		this.focus();
+	} 
+	
+});
+
+ageInput.addEventListener('blur', function() {
+	if (!checkAge(this.value) || this.value >150 || this.value < 0 ) {
+		alert('Недопустимые значения! Введите возраст заново.');
+		this.value = '';
+		this.focus();
+	};
 });
