@@ -57,15 +57,31 @@ function selectCheck() {
 };
 
 
-
-
 function hiddenMain() {
+	let mainWrapper  = document.querySelector('.custom-info');
+		//mainSelect = document.getElementById("select").children[0];
+	//clearForm();
+		document.getElementById('select').options[0].selected=true;
+		document.getElementById('male').checked=true;
+		sexPerson1 = 0; sexPerson2 = 3;
+		slideSkinIndex = 1;
+		slideClothesIndex = 1;
+		slideHairIndex = 1;
+		createPerson();
+	  for (let i = 0; i < mainWrapper.childNodes.length; i++) {
+	  	if ( mainWrapper.childNodes[i].tagName != 'SELECT') {
+	  		mainWrapper.childNodes[i].value = '';
+	  	}
+	  }
+
 	overlay.style.display = 'none';
 	main.style.display = 'none';
 	custom.style.display = 'flex';
 	customInfo.style.display = 'block';
 	customChar.style.display = 'block';
 	customStyle.style.display = 'block';
+
+
 }
 
 function showMain() {
@@ -213,14 +229,18 @@ function randomInteger(min, max) {
 function honestVoting(random2) {
 	let zeroProgress = document.getElementsByClassName('progress-bar'),
 		resultCount = document.getElementsByClassName('result-count'),
-		random = 0, random3 = 0;
+		random = 0, random3 = 1;
 
 		if (random2 != 0 ) { random3 = 25;}
 
 		for ( let i = 0; i < zeroProgress.length; i++) {
 			if (i<2) {
-				random = randomInteger(0, 100-random2); 
+				random = randomInteger(1, 100-random2); 
 				random2 += random;
+				if (100-random2 == 0) { // Проверка, чтобы не было 0% у кандидата, минимум 1%
+					random -= 1;
+					random2 -= 1;
+				}
 			}
 			else
 			{
