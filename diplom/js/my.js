@@ -128,7 +128,7 @@ function createCard(peopleInfo) {
 	for (let i = 0; i < newCard.children.length; i++) {
 
 		if ( newCard.children[i].className == 'age') {
-			newCard.children[i].textContent = peopleInfo.age;
+			newCard.children[i].textContent = peopleInfo.age + ' лет';
 		}
 
 		if ( newCard.children[i].className == 'name') {
@@ -348,13 +348,18 @@ function createPerson() {
 
 radioBtn.addEventListener('click', function(event) {
 	
-	sexPerson1 = 0; sexPerson2 = 3;
 	
-	if ( event.target && event.target.id == 'female') {
+	
+	if (event.target.id == 'female') {
 		sexPerson1 = 3; sexPerson2 = 0;
+		createPerson();
 	};
 
-	createPerson();
+	if (event.target.id == 'male') {
+		sexPerson1 = 0; sexPerson2 = 3;
+		createPerson();
+	};
+	
 
 });
 
@@ -407,7 +412,7 @@ nameInput.addEventListener('blur', function() {
 });
 
 ageInput.addEventListener('blur', function() {
-	if (!checkAge(this.value) || this.value >100 || this.value <= 35 ) {
+	if (!checkAge(this.value) || this.value >100 || this.value < 35 ) {
 		alert('Недопустимые значения!\nВозраст от 35 до 100 лет\nВведите возраст заново.');
 		this.value = 35;
 		this.focus();
